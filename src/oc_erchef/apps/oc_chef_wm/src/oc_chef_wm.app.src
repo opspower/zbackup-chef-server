@@ -28,5 +28,6 @@
                   data_collector
                  ]},
   {mod, {oc_chef_wm_app, []}},
+  {modules, []},
   {env, []}
  ]}.

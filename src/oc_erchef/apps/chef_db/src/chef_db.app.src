@@ -28,5 +28,6 @@
                   chef_secrets,
                   sqerl
                  ]},
+  {modules, []},
   {env, []}
  ]}.

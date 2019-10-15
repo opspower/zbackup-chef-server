@@ -24,5 +24,6 @@
                   stdlib,
                   stats_hero,
                   chef_db]},
+  {modules, []},
   {mod, {oc_chef_authz_app, []}}
  ]}.

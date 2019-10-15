@@ -30,5 +30,6 @@
         chef_secrets,
         opscoderl_httpc
     ]},
+    {modules, []},
     {mod, {data_collector_app, []}}
 ]}.

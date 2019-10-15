@@ -29,5 +29,6 @@
                   stdlib
                  ]},
   {mod, { chef_test_app, []}},
+  {modules, []},
   {env, []}
  ]}.

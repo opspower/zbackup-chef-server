@@ -27,5 +27,6 @@
                   ibrowse,
                   chef_secrets
                  ]},
+  {modules, []},
   {env, []}
  ]}.

@@ -30,6 +30,7 @@
                   chef_secrets,
                   pooler
                  ]},
+  {modules, []},
   {env, [
          %% S3 Access credentials for Bookshelf operations
          {s3_access_key_id, undefined},
