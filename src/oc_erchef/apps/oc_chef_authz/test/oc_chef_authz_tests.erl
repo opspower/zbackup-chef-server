@@ -397,6 +397,7 @@ start_apps() ->
     application:set_env(oc_chef_authz, authz_service,
                         [{root_url, "http://test-authz-service:2323"},
                          {timeout, 200}, {init_count, 5}, {max_count, 6}]),
+io:nl(), io:nl(), io:write(needed_apps()), io:nl(), io:nl(),
     [ {ok, _} = application:ensure_all_started(A) || A <- needed_apps() ],
     ok.
 
