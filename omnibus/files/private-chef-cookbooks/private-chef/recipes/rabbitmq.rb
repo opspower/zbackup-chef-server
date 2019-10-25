@@ -108,8 +108,10 @@ end
 script 'hard_kill_rabbitmq' do
   interpreter "bash"
   code <<-EOH
-timeout 60 /opt/opscode/embedded/bin/sv stop /opt/opscode/service/rabbitmq
-if [ $? -ne 0 ] 
+#timeout 60 /opt/opscode/embedded/bin/sv stop /opt/opscode/service/rabbitmq
+timeout 60 chef-server-ctl stop rabbitmq
+#if [ $? -ne 0 ] 
+if [ $? -eq 0 ] 
 then
    kill --term `/opt/opscode/sv/rabbitmq/supervise/pid`
 fi
