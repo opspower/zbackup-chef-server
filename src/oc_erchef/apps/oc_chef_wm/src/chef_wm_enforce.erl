@@ -34,7 +34,7 @@
 %% This is the max size allowed for incoming request bodies.
 -define(MAX_SIZE, 1000000).
 
--spec max_size(#wm_reqdata{}) -> #wm_reqdata{}.
+%-spec max_size(#wm_reqdata{}) -> #wm_reqdata{}.
 %% Verify that the request body is not larger than ?MAX_SIZE bytes. Throws `{too_big, Msg}`
 %% if the request body is too large.
 max_size(Req) ->
