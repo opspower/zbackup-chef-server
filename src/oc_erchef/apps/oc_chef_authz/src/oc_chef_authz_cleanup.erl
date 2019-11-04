@@ -37,9 +37,9 @@
          start_link/0,
          add_authz_ids/2,
          get_authz_ids/0,
-         start/0,
-         stop/0,
-         prune/0,
+%         start/0,
+%         stop/0,
+%         prune/0,
          prune/2
         ]).
 
@@ -86,14 +86,15 @@ add_authz_ids(Actors, Groups) ->
 get_authz_ids() ->
     gen_fsm:sync_send_all_state_event(?MODULE, get_authz_ids, ?CLEANUP_TIMEOUT).
 
-start() ->
-    gen_fsm:send_event(?MODULE, start).
+%start() ->
+%    gen_fsm:send_event(?MODULE, start).
+%
+%stop() ->
+%    gen_fsm:send_event(?MODULE, stop).
+%
+%prune() ->
+%    gen_fsm:send_event(?MODULE, prune).
 
-stop() ->
-    gen_fsm:send_event(?MODULE, stop).
-
-prune() ->
-    gen_fsm:send_event(?MODULE, prune).
 %%%===================================================================
 %%% gen_fsm callbacks
 %%%===================================================================
