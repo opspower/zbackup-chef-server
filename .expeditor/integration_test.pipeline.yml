@@ -3,5 +3,24 @@ expeditor:
   defaults:
     buildkite:
       timeout_in_minutes: 90
+      env:
+        TF_VAR_aws_contact: releng
+        TF_VAR_aws_department: CoreEng
+        TF_VAR_aws_profile: chef-cd
+        TF_VAR_aws_region: us-west-2
+        TF_VAR_aws_ssh_key_id: cd-infrastructure
+        TF_VAR_aws_vpc_name: delivered-default
+    accounts:
+      - aws/chef-cd
 
 steps:
+
+  - label: ':terraform: omnibus-tiered-fresh-install-ipv4-rhel-7'
+    command: .expeditor/integration_test.pipeline.sh
+    env:
+      TF_VAR_enable_ipv6: false
+      TF_VAR_platform: rhel-7
+      TF_VAR_scenario: omnibus-tiered-fresh-install
+    expeditor:
+      executor:
+        docker:
