@@ -29,7 +29,7 @@ then
 
     if [[ ! -e "/opt/$path/bin/$ctl_cmd" ]];
     then
-        echo "ERROR: Chef Server may not be installed."
+        echo "ERROR: Chef Infra Server may not be installed."
         exit 1
     fi
 elif [[ $type == 'OSC' ]];
@@ -176,7 +176,7 @@ then
     known_platform="rhel"
 elif [[ -f "/etc/os-release" ]] && grep -q "Amazon Linux 2" /etc/os-release;
 then
-    known_platform="aws"
+    known_platform="amazon"
     cat "/etc/os-release" >> "$tmpdir/platform_version.txt"
     cat "/etc/system-release-cpe" >> "$tmpdir/platform_version.txt"
 else
@@ -187,17 +187,27 @@ umask > "$tmpdir/umask.txt"
 
 uptime > "$tmpdir/uptime.txt"
 
-cp "/proc/cpuinfo" "$tmpdir/cpuinfo.txt"
+mkdir -p "$tmpdir/proc/sys/crypto/"
 
-cp "/proc/meminfo" "$tmpdir/meminfo.txt"
+cp "/proc/cpuinfo" "$tmpdir/proc/cpuinfo"
 
-free -m > "$tmpdir/free-m.txt"
+cp "/proc/meminfo" "$tmpdir/proc/meminfo"
+
+cp "/proc/version" "$tmpdir/proc/version"
+
+cp "/proc/sys/crypto/fips_enabled" "$tmpdir/proc/sys/crypto/fips_enabled"
+
+free -m > "$tmpdir/free_m.txt"
 
 ps fauxww > "$tmpdir/ps_fauxww.txt"
 
-df -h >  "$tmpdir/df_h.txt"
+df -h > "$tmpdir/df_h.txt"
 
-df -i >  "$tmpdir/df_i.txt"
+df -i > "$tmpdir/df_i.txt"
+
+df -k > "$tmpdir/df_k.txt"
+
+/opt/opscode/bin/ohai > "$tmpdir/ohai.txt"
 
 if [[ -e /opt/opscode-manage/bin/opscode-manage-ctl ]];
 then
@@ -216,13 +226,7 @@ su -m opscode -c 'ulimit -a' > "$tmpdir/ulimit_a_opscode.txt"
 ip addr show > "$tmpdir/ip_addr_show.txt"
 
 # ss(8) is the command for socket statistics that replaces netstat
-#RHEL5 only has netstat
-if which ss > /dev/null 2>&1
-then
-    ss -ontap > "$tmpdir/ss_ontap.txt"
-else
-    netstat -alntp > "$tmpdir/netstat_alntp.txt"
-fi
+ss -ontap > "$tmpdir/ss_ontap.txt"
 
 sysctl -a > "$tmpdir/sysctl_a.txt" 2>&1
 
@@ -321,7 +325,7 @@ then
 
     rpm -qa | $installed_packages_grep >> "$installed_packages_file"
 
-elif [[ $known_platform == 'aws' ]];
+elif [[ $known_platform == 'amazon' ]];
 then
 
     rpm -qa | $installed_packages_grep >> "$installed_packages_file"
